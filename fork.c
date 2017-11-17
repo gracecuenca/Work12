@@ -25,8 +25,7 @@ int main(){
   if(pid){
     pid = fork();
     if(getpid() == first){
-      prinf ("Child process %d ended first.\n", wait (&status));
-      wait(&status);
+      printf ("Child process %d ended first.\n", wait (&status));
       printf("wexit status of status/ num of sec before end: %d\n", WEXITSTATUS(status));
       printf("Parent ended\n");
     }
