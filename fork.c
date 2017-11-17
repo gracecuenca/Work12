@@ -24,10 +24,11 @@ int main(){
   }
 
   if(!pid){
-    //srand(time( (time_t *) getpid()));
-    srand(time(NULL));
+    srand(getpid());
+    //srand(time(NULL));
     int timel = (rand() % 16) + 5;
     printf("child pid: %d\n", getpid());
+    //printf("time: %d\n", timel);
     sleep(timel);
     return timel;
   }
