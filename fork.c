@@ -9,26 +9,28 @@ int main(){
 
   srand( time(NULL) );
 
-  int first, second, third, status;
-  first = getpid();
-  fork();
-  if(getpid() == first){
-    printf("pid of parent: %d\n", getpid());
-    fork();
+  int pid, first, status;
+  first = pid = getpid();
+  printf("initial msg: pid of parent: %d\n", pid);
+  pid = fork();
+  //parent
+  if(pid){
+    pid = fork();
+    if(getpid() == first){
+      wait(&status);
+      printf("wexit status of status/ num of sec before end: %d\n", WEXITSTATUS(status));
+      printf("Parent ended\n");
+    }
   }
-  else{
-    second = getpid();
-    printf("pid of first child: %d\n", second);
-    status = (rand()% 16) +5;
-    printf("wait time: %d\n", status);
-    wait(20);
+
+  if(!pid){
+    //srand(time( (time_t *) getpid()));
+    srand(time(NULL));
+    int timel = (rand() % 16) + 5;
+    printf("child pid: %d\n", getpid());
+    sleep(timel);
+    return timel;
   }
-  if(getpid() != first && getpid()!= second){
-    third = getpid();
-    printf("pid of second child: %d\n", getpid());
-    status = (rand()% 16) +5;
-    printf("wait time: %d\n", status);
-    wait(status);
-  }
+
   return 0;
 }
